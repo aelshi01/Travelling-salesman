@@ -29,5 +29,5 @@ def test_swap_cities():
 # the the new road map.
 
 def test_shift_cities():
-    assert type(shift_cities(road_map)) != road_map
+    assert shift_cities(road_map) != shift_cities([(Arizona, Phoenix, 33.448457, -112.073844)])
 

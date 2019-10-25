@@ -9,14 +9,14 @@ def read_cities(file_name):
 
       Alabama -> Alaska -> Arizona -> ... -> Wyoming -> Alabama.
     """
-    return [(california, San diego, Sacramento, 38.555605, -121.468926)]
+    pass
   
 def print_cities(road_map):
     """
     Prints a list of cities, along with their locations. 
     Print only one or two digits after the decimal point.
     """
-    return [(Dover, 39.16, -75.53), (Atlanta, 33.76, -84.39)]
+    pass
 
 def compute_total_distance(road_map):
     """
@@ -46,7 +46,7 @@ def shift_cities(road_map):
     to the position i+1. The city at the last position moves to the position
     0. Return the new road map. 
     """
-     return road_map
+    return [(Colorado, Denver, 39.7391667, -104.984167)]
 
 def find_best_cycle(road_map):
     """
@@ -55,7 +55,7 @@ def find_best_cycle(road_map):
     After `10000` swaps/shifts, return the best cycle found so far.
     Use randomly generated indices for swapping.
     """
-    return road_map
+    pass
 
 def print_map(road_map):
     """
