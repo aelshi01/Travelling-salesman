@@ -38,7 +38,7 @@ def swap_cities(road_map, index1, index2):
     Allow for the possibility that `index1=index2`,
     and handle this case correctly.
     """
-    return (Alabama, 10,000)
+    return (road_map, 10,000)
 
 def shift_cities(road_map):
     """
