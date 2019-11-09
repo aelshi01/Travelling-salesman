@@ -38,13 +38,20 @@ def print_cities(road_map):
 
     print(lst1)
 
+import math
+
 def compute_total_distance(road_map):
     """
-    Returns, as a floating point number, the sum of the distances of all 
-    the connections in the `road_map`. Remember that it's a cycle, so that 
-    (for example) in the initial `road_map`, Wyoming connects to Alabama...
-    """
-    return 3.17895
+        Returns, as a floating point number, the sum of the distances of all
+        the connections in the `road_map`. Remember that it's a cycle, so that
+        (for example) in the initial `road_map`, Wyoming connects to Alabama...
+        """
+    d = 0
+    for i in range(len(road_map)-1):
+        d += math.sqrt((road_map[i][2] - road_map[i+1][2])**2 + (road_map[i][3] - road_map[i+1][3])**2)
+    d+= math.sqrt((road_map[0][2] - road_map[len(road_map)-1][2])**2 + (road_map[0][3] - road_map[len(road_map)-1][3])**2)
+    return d
+
 
 
 def swap_cities(road_map, index1, index2):
