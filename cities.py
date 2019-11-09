@@ -54,18 +54,28 @@ def compute_total_distance(road_map):
 
 
 
+
 def swap_cities(road_map, index1, index2):
     """
-    Take the city at location `index` in the `road_map`, and the 
-    city at location `index2`, swap their positions in the `road_map`, 
-    compute the new total distance, and return the tuple 
-
-        (new_road_map, new_total_distance)
-
+    Take the city at location `index` in the `road_map`, and the
+    city at location `index2`, swap their positions in the `road_map`,
+    compute the new total distance, and return the tuple
+        
+    (new_road_map, new_total_distance)
+        
     Allow for the possibility that `index1=index2`,
     and handle this case correctly.
     """
-    return (road_map, 10,000)
+    city1 = road_map[index1]
+    city2 = road_map[index2]
+    road_map[index1] = city2
+    road_map[index2] = city1
+    
+    new_road_map = road_map
+    
+    
+    
+    return (new_road_map, compute_total_distance(new_road_map))
 
 def shift_cities(road_map):
     """
