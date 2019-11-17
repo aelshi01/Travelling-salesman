@@ -48,8 +48,8 @@ def compute_total_distance(road_map):
         """
     d = 0
     for i in range(len(road_map)-1):
-        d += math.sqrt((road_map[i][2] - road_map[i+1][2])**2 + (road_map[i][3] - road_map[i+1][3])**2)
-    d+= math.sqrt((road_map[0][2] - road_map[len(road_map)-1][2])**2 + (road_map[0][3] - road_map[len(road_map)-1][3])**2)
+        d += math.sqrt((float(road_map[i][2]) - float(road_map[i+1][2]))**2 + (float(road_map[i][3]) - float(road_map[i+1][3]))**2)
+    d+= math.sqrt((float(road_map[0][2]) - float(road_map[len(road_map)-1][2]))**2 + (float(road_map[0][3]) - float(road_map[len(road_map)-1][3]))**2)
     return d
 
 
@@ -79,11 +79,17 @@ def swap_cities(road_map, index1, index2):
 
 def shift_cities(road_map):
     """
-    For every index i in the `road_map`, the city at the position i moves
-    to the position i+1. The city at the last position moves to the position
-    0. Return the new road map. 
-    """
-    return [(Colorado, Denver, 39.7391667, -104.984167)]
+        For every index i in the `road_map`, the city at the position i moves
+        to the position i+1. The city at the last position moves to the position
+        0. Return the new road map.
+        """
+    lst = []
+    lst.append(road_map[len(road_map)-1])
+    for i in range(0,len(road_map)-1):
+        lst.append(road_map[i])
+    
+    
+    return lst
 
 def find_best_cycle(road_map):
     """

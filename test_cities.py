@@ -14,7 +14,13 @@ def test_compute_total_distance():
            pytest.approx(9.386+18.496+10.646, 0.01)
 
     assert type(compute_total_distance(road_map)) == float
-    assert 0 < test_compute_total_distance(0) < 0.1
+    assert len(road_map1)>=1
+    for i in range(len(road_map1)):
+         assert type(road_map1[i][0] and road_map1[i][1]) == str
+         assert type(road_map1[i][2] and road_map1[i][3]) == float
+
+
+
 
 # swap_cities(road_map, index1, index2) - Take the city at location index in the road_map,
 # and the city at location index2, swap their positions in the road_map, compute the new
@@ -23,7 +29,8 @@ def test_compute_total_distance():
 def test_swap_cities():
     assert type(road_map) == tuple
     assert 0 <=swap_cities(road_map, index1, index2 = index1) < 0.1
-
+    assert (if len(road_map)==2:
+                 swap_cities(road_map, index1, index2)[1]==compute_total_distance(road_map))
 
 # shift_cities(road_map) - For every index i in the road_map, the city at the position i
 # moves to the position i+1. The city at the last position moves to the position 0. Return
@@ -31,4 +38,5 @@ def test_swap_cities():
 
 def test_shift_cities():
     assert shift_cities(road_map) != shift_cities([(Arizona, Phoenix, 33.448457, -112.073844)])
+    assert len(shift_cities(road_map)) == len(road_map)
 
