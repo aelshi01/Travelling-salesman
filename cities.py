@@ -93,20 +93,34 @@ def shift_cities(road_map):
 
 def find_best_cycle(road_map):
     """
-    Using a combination of `swap_cities` and `shift_cities`, 
-    try `10000` swaps/shifts, and each time keep the best cycle found so far. 
-    After `10000` swaps/shifts, return the best cycle found so far.
-    Use randomly generated indices for swapping.
-    """
-    pass
+        Using a combination of `swap_cities` and `shift_cities`,
+        try `10000` swaps/shifts, and each time keep the best cycle found so far.
+        After `10000` swaps/shifts, return the best cycle found so far.
+        Use randomly generated indices for swapping.
+        """
+    best_cycle = compute_total_distance(road_map)
+    for i in range(1000):
+        num1 = rd.randint(1,49)
+        num2 = rd.randint(1,49)
+        swap_cities(road_map,num1,num2)
+        shift_cities(road_map)
+        new_best_cycle = compute_total_distance(road_map)
+        if new_best_cycle < best_cycle:
+            best_cycle = new_best_cycle
+    
+    return  best_cycle 
 
 def print_map(road_map):
     """
-    Prints, in an easily understandable format, the cities and 
-    their connections, along with the cost for each connection 
-    and the total cost.
-    """
-    pass
+        Prints, in an easily understandable format, the cities and
+        their connections, along with the cost for each connection
+        and the total cost.
+        """
+    dic = {}
+    for i in range(len(road_map)-2):
+        dic[road_map[i][1]] = (road_map[i+1][1], compute_total_distance(road_map[i:i+2]))
+    
+    return dic
 
 def main():
     """
