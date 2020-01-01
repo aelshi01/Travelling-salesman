@@ -1,3 +1,5 @@
+import random as rd
+
 def read_cities(file_name):
     """
     Read in the cities from the given `file_name`, and return 
@@ -29,7 +31,7 @@ def print_cities(road_map):
         Print only one or two digits after the decimal point.
         """
     lst1 = []
-    l = read_cities(road_map)
+    l = road_map
     for i in range(len(l)):
         lst1.append(l[i][1:4])
 
@@ -100,12 +102,10 @@ def find_best_cycle(road_map):
         """
     best_cycle = 10000
     new_road_map = []
-    new2_road_map = []
     for i in road_map:
         new_road_map.append(i)
-        new2_road_map.append(i)
     
-    for i in range(1000):
+    for i in range(100):
         coin_flip = rd.randint(0,1)
         if coin_flip == 0:
             num1 = rd.randint(1,49)
@@ -118,17 +118,17 @@ def find_best_cycle(road_map):
                 for i in road_map:
                     new_road_map.append(i)
 
-elif coin_flip == 1:
-    new2_road_map = shift_cities(new_road_map)
-    new_best_cycle = compute_total_distance(new2_road_map)
-    if new_best_cycle < best_cycle:
-        best_cycle = new_best_cycle
-            new_road_map = []
+        elif coin_flip == 1:
+            new2_road_map = shift_cities(new_road_map)
+            new_best_cycle = compute_total_distance(new2_road_map)
+            if new_best_cycle < best_cycle:
+                best_cycle = new_best_cycle
+                new_road_map = []
             for i in new2_road_map:
                 new_road_map.append(i)
 
 
-return  best_cycle   
+    return  best_cycle   
 
 def print_map(road_map):
     """
