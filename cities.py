@@ -1,4 +1,6 @@
 import random as rd
+import os.path
+import tkinter
 
 def read_cities(file_name):
     """
@@ -105,7 +107,7 @@ def find_best_cycle(road_map):
     for i in road_map:
         new_road_map.append(i)
     
-    for i in range(100):
+    for i in range(10000):
         coin_flip = rd.randint(0,1)
         if coin_flip == 0:
             num1 = rd.randint(1,49)
@@ -114,21 +116,15 @@ def find_best_cycle(road_map):
             new_best_cycle = compute_total_distance(new_road_map)
             if new_best_cycle < best_cycle:
                 best_cycle = new_best_cycle
-                new_road_map = []
-                for i in road_map:
-                    new_road_map.append(i)
 
         elif coin_flip == 1:
-            new2_road_map = shift_cities(new_road_map)
-            new_best_cycle = compute_total_distance(new2_road_map)
+            new_road_map = shift_cities(new_road_map)
+            new_best_cycle = compute_total_distance(new_road_map)
             if new_best_cycle < best_cycle:
                 best_cycle = new_best_cycle
-                new_road_map = []
-            for i in new2_road_map:
-                new_road_map.append(i)
-
 
     return  best_cycle   
+
 
 def print_map(road_map):
     """
@@ -142,12 +138,46 @@ def print_map(road_map):
     
     return dic
 
+#def main():
+#    """
+#    Reads in, and prints out, the city data, then creates the "best"
+#    cycle and prints it out.
+#    """
+#    try:
+#        file = input('please enter file: ')
+#        file_open = open(file)
+#        file_open.close()
+#        cities = read_cities(file)
+#        bc = find_best_cycle(cities)
+#        print(cities)
+#        print(bc)
+#    except FileNotFoundError:
+#        print('file path not found')
+    
 def main():
     """
     Reads in, and prints out, the city data, then creates the "best"
     cycle and prints it out.
     """
-    pass
+    finished = False
+    while not finished:
+        file = input('please enter file: ')
+        if os.path.isfile(file):
+            cities = read_cities(file)
+            bc = find_best_cycle(cities)
+            print(cities)
+            print(bc)
+            finished = True
+        else:
+            print('file path not found')
+            
+
+def visualise():
+    window = tkinter.Tk()
+    window.title("Road map")
+    tkinter.Label(window, text = "best route").pack()
+    window.mainloop()
+
 
 if __name__ == "__main__": #keep this in
     main()

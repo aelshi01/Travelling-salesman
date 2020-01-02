@@ -28,7 +28,7 @@ def test_compute_total_distance():
 
 def test_swap_cities():
     assert type(road_map) == tuple
-    assert 0 <=swap_cities(road_map, index1, index2 = index1) < 0.1
+    assert 0 <=swap_cities(road_map, index1, index2 = index1)[1] < 0.1
     assert (if len(road_map)==2:
                  swap_cities(road_map, index1, index2)[1]==compute_total_distance(road_map))
 
