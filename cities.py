@@ -125,7 +125,6 @@ def find_best_cycle(road_map):
 
     return  best_cycle   
 
-
 def print_map(road_map):
     """
         Prints, in an easily understandable format, the cities and
