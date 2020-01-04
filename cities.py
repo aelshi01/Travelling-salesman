@@ -1,6 +1,8 @@
 import random as rd
 import os.path
 import tkinter
+from tkinter import *
+import matplotlib.pyplot as plt
 
 def read_cities(file_name):
     """
@@ -110,8 +112,8 @@ def find_best_cycle(road_map):
     for i in range(10000):
         coin_flip = rd.randint(0,1)
         if coin_flip == 0:
-            num1 = rd.randint(1,49)
-            num2 = rd.randint(1,49)
+            num1 = rd.randint(0,len(road_map)-1)
+            num2 = rd.randint(0,len(road_map)-1)
             new_road_map = swap_cities(new_road_map,num1,num2)[0]
             new_best_cycle = compute_total_distance(new_road_map)
             if new_best_cycle < best_cycle:
@@ -171,12 +173,62 @@ def main():
             print('file path not found')
             
 
-def visualise():
-    window = tkinter.Tk()
-    window.title("Road map")
-    tkinter.Label(window, text = "best route").pack()
-    window.mainloop()
+def visualise(road_map):
+    x = []
+    y = []
+    cities = []
+    
+    for i in range(len(road_map)):
+        x1 = float(road_map[i][3])
+        y1 = float(road_map[i][2])
+        city = str(road_map[i][1])
+        x.append(x1)
+        y.append(y1)
+        cities.append(city)
+
+
+    plt.plot(x, y)
+
+    for i in range(-1, len(road_map)-1):
+        plt.arrow(x[i], y[i], (x[i+1] - x[i]), (y[i+1] - y[i]))
+        plt.annotate(cities[i], (x[i], y[i]), size = 5)
+
+    return plt.show()
 
 
 if __name__ == "__main__": #keep this in
     main()
+
+
+#def visualise():
+#    window = tkinter.Tk()
+#    window.title("Road map")
+#    tkinter.Label(window, text = "best route").pack()
+#    window.geometry('300x300')
+#    c = Canvas(window, height=950, width=10000)
+#    o = c.create_oval(30,30,100,100, fill = 'red')
+#    
+#    
+#    
+#    c.pack()
+#    
+#    window.mainloop()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
