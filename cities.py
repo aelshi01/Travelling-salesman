@@ -116,7 +116,7 @@ def find_best_cycle(road_map):
         if coin_toss == 0:      
             index1 = rd.randint(0, len(road_map) - 1)
             index2 = rd.randint(0, len(road_map) - 1)
-            new_road_map = (swap_cities(best_one, index1, index2)[0])
+            new_road_map = (swap_cities(new_road_map, index1, index2)[0])
             cycle = compute_total_distance(new_road_map)
             
             if (compute_total_distance(best_one)) > cycle:
@@ -124,8 +124,13 @@ def find_best_cycle(road_map):
                 best_one = []
                 for row in new_road_map:
                     best_one.append(row)
+            else:
+                new_road_map = []
+                for row in best_one:
+                    new_road_map.append(row)
+                
         elif coin_toss == 1:
-            new_road_map = (shift_cities(best_one))
+            new_road_map = (shift_cities(new_road_map))
             cycle = compute_total_distance(new_road_map)
 
             if (compute_total_distance(best_one)) > cycle:
@@ -133,8 +138,11 @@ def find_best_cycle(road_map):
                 best_one = []
                 for row in new_road_map:
                     best_one.append(row)
-    
-    return lst  
+            else:
+                new_road_map = []
+                for row in best_one:
+                    new_road_map.append(row)
+    return compute_total_distance(best_one)  
 
 def print_map(road_map):
     """
@@ -163,6 +171,7 @@ def main():
             bc = find_best_cycle(cities)
             print(cities)
             print(bc)
+            visualise(road_map)
             finished = True
         else:
             print('file path not found')
@@ -182,17 +191,22 @@ def visualise(road_map):
         x.append(x1)
         y.append(y1)
         cities.append(city)
+    root = tkinter.Tk()
+    root.wm_title("Road Map")
     
-    tk = tkinter.Tk()
-    tk.wm_title("Road Map")
     fig = Figure(figsize=(10, 9), dpi=100)
-    fig.add_subplot(111).plot(x, y)
-    canvas = FigureCanvasTkAgg(fig, master=tk)
+    a = fig.add_subplot(111)
+    a.plot(x, y)
+    
+    for i in range(-1, len(road_map)-1):
+        a.arrow(x[i], y[i], (x[i+1] - x[i]), (y[i+1] - y[i]))
+        a.annotate(cities[i], (x[i], y[i]), size = 5)
+    canvas = FigureCanvasTkAgg(fig, master=root)  # A tk.DrawingArea.
     canvas.draw()
-    canvas.get_tk_widget().pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)    
-
+    canvas.get_tk_widget().pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
+    canvas.get_tk_widget().pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
+    
     tkinter.mainloop()
-
 
 
 
