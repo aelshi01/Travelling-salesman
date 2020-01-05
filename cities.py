@@ -8,6 +8,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import numpy as np
 
+
 def read_cities(file_name):
     """
     Read in the cities from the given `file_name`, and return 
@@ -101,88 +102,6 @@ def shift_cities(road_map):
     
     return lst
 
-#def find_best_cycle(road_map):
-#    """
-#        Using a combination of `swap_cities` and `shift_cities`,
-#        try `10000` swaps/shifts, and each time keep the best cycle found so far.
-#        After `10000` swaps/shifts, return the best cycle found so far.
-#        Use randomly generated indices for swapping.
-#        """
-#    best_cycle = 10000
-#    new_road_map = []
-#    for i in road_map:
-#        new_road_map.append(i)
-#    
-#    for i in range(10000):
-#        coin_flip = rd.randint(0,1)
-#        if coin_flip == 0:
-#            num1 = rd.randint(0,len(road_map)-1)
-#            num2 = rd.randint(0,len(road_map)-1)
-#            new_road_map = swap_cities(new_road_map,num1,num2)[0]
-#            new_best_cycle = compute_total_distance(new_road_map)
-#            if new_best_cycle < best_cycle:
-#                best_cycle = new_best_cycle
-#
-#        elif coin_flip == 1:
-#            new_road_map = shift_cities(new_road_map)
-#            new_best_cycle = compute_total_distance(new_road_map)
-#            if new_best_cycle < best_cycle:
-#                best_cycle = new_best_cycle
-#
-#    return  best_cycle   
-
-def print_map(road_map):
-    """
-        Prints, in an easily understandable format, the cities and
-        their connections, along with the cost for each connection
-        and the total cost.
-        """
-    dic = {}
-    for i in range(len(road_map)-2):
-        dic[road_map[i][1]] = (road_map[i+1][1], compute_total_distance(road_map[i:i+2]))
-    
-    return dic
-
-#def main():
-#    """
-#    Reads in, and prints out, the city data, then creates the "best"
-#    cycle and prints it out.
-#    """
-#    try:
-#        file = input('please enter file: ')
-#        file_open = open(file)
-#        file_open.close()
-#        cities = read_cities(file)
-#        bc = find_best_cycle(cities)
-#        print(cities)
-#        print(bc)
-#    except FileNotFoundError:
-#        print('file path not found')
-    
-def main():
-    """
-    Reads in, and prints out, the city data, then creates the "best"
-    cycle and prints it out.
-    """
-    finished = False
-    while not finished:
-        file = input('please enter file: ')
-        if os.path.isfile(file):
-            cities = read_cities(file)
-            bc = find_best_cycle(cities)
-            print(cities)
-            print(bc)
-            finished = True
-        else:
-            print('file path not found')
-            
-
-if __name__ == "__main__": #keep this in
-    main()
-
-
-
-
 
 def find_best_cycle(road_map):
     best_one = []
@@ -215,15 +134,43 @@ def find_best_cycle(road_map):
                 for row in new_road_map:
                     best_one.append(row)
     
-    return lst
+    return lst  
+
+def print_map(road_map):
+    """
+        Prints, in an easily understandable format, the cities and
+        their connections, along with the cost for each connection
+        and the total cost.
+        """
+    dic = {}
+    for i in range(len(road_map)-2):
+        dic[road_map[i][1]] = (road_map[i+1][1], compute_total_distance(road_map[i:i+2]))
+    
+    return dic
+
+
+    
+def main():
+    """
+    Reads in, and prints out, the city data, then creates the "best"
+    cycle and prints it out.
+    """
+    finished = False
+    while not finished:
+        file = input('please enter file: ')
+        if os.path.isfile(file):
+            cities = read_cities(file)
+            bc = find_best_cycle(cities)
+            print(cities)
+            print(bc)
+            finished = True
+        else:
+            print('file path not found')
 
 
 
 
-
-
-
-def visualise():
+def visualise(road_map):
     x = []
     y = []
     cities = []
@@ -235,72 +182,19 @@ def visualise():
         x.append(x1)
         y.append(y1)
         cities.append(city)
-   
-    for i in range(-1, len(road_map)-1):
-        plt.annotate(cities[i], (x[i], y[i]), size = 5)
-
     
     tk = tkinter.Tk()
-    tk.wm_title("Embedding in Tk")
-    
-    fig = Figure(figsize=(5, 4), dpi=100)
-    t = np.arange(0, 3, .01)
+    tk.wm_title("Road Map")
+    fig = Figure(figsize=(10, 9), dpi=100)
     fig.add_subplot(111).plot(x, y)
     canvas = FigureCanvasTkAgg(fig, master=tk)
     canvas.draw()
     canvas.get_tk_widget().pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)    
-    
+
     tkinter.mainloop()
 
 
 
 
-
-#
-#def find_best_cycle(road_map):
-#    best_one = []
-#    new_road_map = []
-#    for row in road_map:
-#        new_road_map.append(row)
-#        best_one.append(row)
-#    cycle = 0
-#    for i in range(10000):
-#        coin_toss = rd.randint(0,1)
-#        if coin_toss == 0:      
-#            index1 = rd.randint(0, len(road_map) - 1)
-#            index2 = rd.randint(0, len(road_map) - 1)
-#            new_road_map = (swap_cities(best_one, index1, index2)[0])
-#            cycle = compute_total_distance(new_road_map)
-#            if (compute_total_distance(best_one)) > cycle:
-#                best_one = []
-#                for row in new_road_map:
-#                    best_one.append(row)
-#        elif coin_toss == 1:
-#            new_road_map = (shift_cities(best_one))
-#            cycle = compute_total_distance(new_road_map)
-#            if (compute_total_distance(best_one)) > cycle:
-#                best_one = []
-#                for row in new_road_map:
-#                    best_one.append(row)
-#    
-#    return compute_total_distance(best_one)
-
-
-def visualise2():
-    x = []
-    y = []
-    cities = []
-    
-    for i in range(len(road_map)):
-        x1 = float(road_map[i][3])
-        y1 = float(road_map[i][2])
-        city = str(road_map[i][1])
-        x.append(x1)
-        y.append(y1)
-        cities.append(city)
-    
-    plt.subplot(111)
-    plt.plot(x, y, 'C3', zorder=1, lw=5)
-    plt.scatter(x, y, s=220, zorder=2)
-    plt.title('Dots on top of lines')
-    plt.tight_layout()
+if __name__ == "__main__": #keep this in
+    main()
