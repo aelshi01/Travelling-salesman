@@ -142,7 +142,7 @@ def find_best_cycle(road_map):
                 new_road_map = []
                 for row in best_one:
                     new_road_map.append(row)
-    return compute_total_distance(best_one)  
+    return best_one
 
 def print_map(road_map):
     """
@@ -152,7 +152,8 @@ def print_map(road_map):
         """
     dic = {}
     for i in range(len(road_map)-2):
-        dic[road_map[i][1]] = (road_map[i+1][1], compute_total_distance(road_map[i:i+2]))
+        dic[road_map[i][1] +' '+ 'to' + ' ' + road_map[i+1][1]] = ('Cost = %f' %compute_total_distance(road_map[i:i+2]),
+           'Total Cost = %f' %compute_total_distance(road_map[0:i+2]))
     
     return dic
 
@@ -169,12 +170,15 @@ def main():
         if os.path.isfile(file):
             cities = read_cities(file)
             bc = find_best_cycle(cities)
-            print(cities)
+            print('\ncity-data:\n')
+            print(cities, end = '\n\n\n')
+            print('best cycle:\n')
             print(bc)
-            visualise(road_map)
+            visualise(bc)
             finished = True
         else:
             print('file path not found')
+            finished = True
 
 
 
@@ -191,17 +195,18 @@ def visualise(road_map):
         x.append(x1)
         y.append(y1)
         cities.append(city)
-    root = tkinter.Tk()
-    root.wm_title("Road Map")
+    tk = tkinter.Tk()
+    tk.wm_title("Road Map")
     
-    fig = Figure(figsize=(10, 9), dpi=100)
+    fig = Figure(figsize=(15, 14), dpi=200)
     a = fig.add_subplot(111)
     a.plot(x, y)
     
     for i in range(-1, len(road_map)-1):
         a.arrow(x[i], y[i], (x[i+1] - x[i]), (y[i+1] - y[i]))
-        a.annotate(cities[i], (x[i], y[i]), size = 5)
-    canvas = FigureCanvasTkAgg(fig, master=root)  # A tk.DrawingArea.
+        a.scatter(x[i], y[i])
+        a.annotate(cities[i], (x[i], y[i]), size = 7)
+    canvas = FigureCanvasTkAgg(fig, master=tk)
     canvas.draw()
     canvas.get_tk_widget().pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
     canvas.get_tk_widget().pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
