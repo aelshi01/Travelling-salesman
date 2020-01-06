@@ -179,7 +179,35 @@ def main():
             print('file path not found')
             finished = True
 
-
+def visualise(road_map):
+    x = []
+    y = []
+    cities = []
+    
+    for i in range(len(road_map)):
+        x1 = float(road_map[i][3])
+        y1 = float(road_map[i][2])
+        city = str(road_map[i][1])
+        x.append(x1)
+        y.append(y1)
+        cities.append(city)
+    tk = tkinter.Tk()
+    tk.wm_title("Road Map")
+    
+    fig = Figure(figsize=(15, 14), dpi=200)
+    a = fig.add_subplot(111)
+    a.plot(x, y)
+    
+    for i in range(-1, len(road_map)-1):
+        a.arrow(x[i], y[i], (x[i+1] - x[i]), (y[i+1] - y[i]))
+        a.scatter(x[i], y[i])
+        a.annotate(cities[i], (x[i], y[i]), size = 7)
+    canvas = FigureCanvasTkAgg(fig, master=tk)
+    canvas.draw()
+    canvas.get_tk_widget().pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
+    canvas.get_tk_widget().pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
+    
+    tkinter.mainloop()
 
 
 if __name__ == "__main__": #keep this in

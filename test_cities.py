@@ -35,12 +35,13 @@ def test_swap_cities():
                  ("California", "Sacramento", 38.555605, -121.468926),\
                  ("Colorado", "Denver", 39.7391667, -104.984167),\
                  ("Connecticut", "Hartford", 41.767, -72.677)]
-     
+                 
     assert type(swap_cities(road_map,0,1)) == tuple
     assert swap_cities(road_map, 1, 1)[1] == compute_total_distance(road_map)
-    #assert swap_cities(road_map, 0, 1)[1] == compute_total_distance(swap_cities(road_map,0,1)[0])
-    new_road_map = swap_cities(road_map, 1, 5)
-    #assert new_road_map[0][1] == road_map[5] and new_road_map[0][5] == road_map[1]
+    assert float(swap_cities(road_map, 0, 0)[1]) == compute_total_distance(swap_cities(road_map,0,0)[0])
+    new_road_map = swap_cities(road_map, 2, 5)
+    assert new_road_map[0][2] == ("Colorado", "Denver", 39.7391667, -104.984167) and new_road_map[0][5] == ("Arizona", "Phoenix'", 33.448457, -112.073844)
+
     assert len(swap_cities(road_map,0,1)) == 2
 
 
